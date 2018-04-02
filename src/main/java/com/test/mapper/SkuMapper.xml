@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.dao.SkuMapper">
+  <resultMap id="BaseResultMap" type="com.test.bean.Sku">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="spu_id" jdbcType="BIGINT" property="spu_id" />
+    <result column="small_unit_code" jdbcType="VARCHAR" property="small_unit_code" />
+    <result column="big_unit_code" jdbcType="VARCHAR" property="big_unit_code" />
+    <result column="unit_transfer" jdbcType="INTEGER" property="unit_transfer" />
+    <result column="sku_no" jdbcType="VARCHAR" property="sku_no" />
+    <result column="stock" jdbcType="INTEGER" property="stock" />
+    <result column="sale_count" jdbcType="INTEGER" property="sale_count" />
+    <result column="isdel" jdbcType="TINYINT" property="isdel" />
+    <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="big_retailprice" jdbcType="DECIMAL" property="big_retailprice" />
+    <result column="retailprice" jdbcType="DECIMAL" property="retailprice" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, spu_id, small_unit_code, big_unit_code, unit_transfer, sku_no, stock, sale_count, 
+    isdel, updatetime, big_retailprice, retailprice
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sku
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sku
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.test.bean.Sku">
+    insert into sku (id, spu_id, small_unit_code, 
+      big_unit_code, unit_transfer, sku_no, 
+      stock, sale_count, isdel, 
+      updatetime, big_retailprice, retailprice
+      )
+    values (#{id,jdbcType=BIGINT}, #{spu_id,jdbcType=BIGINT}, #{small_unit_code,jdbcType=VARCHAR}, 
+      #{big_unit_code,jdbcType=VARCHAR}, #{unit_transfer,jdbcType=INTEGER}, #{sku_no,jdbcType=VARCHAR}, 
+      #{stock,jdbcType=INTEGER}, #{sale_count,jdbcType=INTEGER}, #{isdel,jdbcType=TINYINT}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{big_retailprice,jdbcType=DECIMAL}, #{retailprice,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.test.bean.Sku">
+    insert into sku
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="spu_id != null">
+        spu_id,
+      </if>
+      <if test="small_unit_code != null">
+        small_unit_code,
+      </if>
+      <if test="big_unit_code != null">
+        big_unit_code,
+      </if>
+      <if test="unit_transfer != null">
+        unit_transfer,
+      </if>
+      <if test="sku_no != null">
+        sku_no,
+      </if>
+      <if test="stock != null">
+        stock,
+      </if>
+      <if test="sale_count != null">
+        sale_count,
+      </if>
+      <if test="isdel != null">
+        isdel,
+      </if>
+      <if test="updatetime != null">
+        updatetime,
+      </if>
+      <if test="big_retailprice != null">
+        big_retailprice,
+      </if>
+      <if test="retailprice != null">
+        retailprice,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="spu_id != null">
+        #{spu_id,jdbcType=BIGINT},
+      </if>
+      <if test="small_unit_code != null">
+        #{small_unit_code,jdbcType=VARCHAR},
+      </if>
+      <if test="big_unit_code != null">
+        #{big_unit_code,jdbcType=VARCHAR},
+      </if>
+      <if test="unit_transfer != null">
+        #{unit_transfer,jdbcType=INTEGER},
+      </if>
+      <if test="sku_no != null">
+        #{sku_no,jdbcType=VARCHAR},
+      </if>
+      <if test="stock != null">
+        #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="sale_count != null">
+        #{sale_count,jdbcType=INTEGER},
+      </if>
+      <if test="isdel != null">
+        #{isdel,jdbcType=TINYINT},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="big_retailprice != null">
+        #{big_retailprice,jdbcType=DECIMAL},
+      </if>
+      <if test="retailprice != null">
+        #{retailprice,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.test.bean.Sku">
+    update sku
+    <set>
+      <if test="spu_id != null">
+        spu_id = #{spu_id,jdbcType=BIGINT},
+      </if>
+      <if test="small_unit_code != null">
+        small_unit_code = #{small_unit_code,jdbcType=VARCHAR},
+      </if>
+      <if test="big_unit_code != null">
+        big_unit_code = #{big_unit_code,jdbcType=VARCHAR},
+      </if>
+      <if test="unit_transfer != null">
+        unit_transfer = #{unit_transfer,jdbcType=INTEGER},
+      </if>
+      <if test="sku_no != null">
+        sku_no = #{sku_no,jdbcType=VARCHAR},
+      </if>
+      <if test="stock != null">
+        stock = #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="sale_count != null">
+        sale_count = #{sale_count,jdbcType=INTEGER},
+      </if>
+      <if test="isdel != null">
+        isdel = #{isdel,jdbcType=TINYINT},
+      </if>
+      <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="big_retailprice != null">
+        big_retailprice = #{big_retailprice,jdbcType=DECIMAL},
+      </if>
+      <if test="retailprice != null">
+        retailprice = #{retailprice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.test.bean.Sku">
+    update sku
+    set spu_id = #{spu_id,jdbcType=BIGINT},
+      small_unit_code = #{small_unit_code,jdbcType=VARCHAR},
+      big_unit_code = #{big_unit_code,jdbcType=VARCHAR},
+      unit_transfer = #{unit_transfer,jdbcType=INTEGER},
+      sku_no = #{sku_no,jdbcType=VARCHAR},
+      stock = #{stock,jdbcType=INTEGER},
+      sale_count = #{sale_count,jdbcType=INTEGER},
+      isdel = #{isdel,jdbcType=TINYINT},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      big_retailprice = #{big_retailprice,jdbcType=DECIMAL},
+      retailprice = #{retailprice,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <resultMap id="BaseResultMap" type="com.test.bean.Sku">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="spu_id" jdbcType="BIGINT" property="spu_id" />
+    <result column="small_unit_code" jdbcType="VARCHAR" property="small_unit_code" />
+    <result column="big_unit_code" jdbcType="VARCHAR" property="big_unit_code" />
+    <result column="unit_transfer" jdbcType="INTEGER" property="unit_transfer" />
+    <result column="sku_no" jdbcType="VARCHAR" property="sku_no" />
+    <result column="stock" jdbcType="INTEGER" property="stock" />
+    <result column="sale_count" jdbcType="INTEGER" property="sale_count" />
+    <result column="isdel" jdbcType="TINYINT" property="isdel" />
+    <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="big_retailprice" jdbcType="DECIMAL" property="big_retailprice" />
+    <result column="retailprice" jdbcType="DECIMAL" property="retailprice" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, spu_id, small_unit_code, big_unit_code, unit_transfer, sku_no, stock, sale_count, 
+    isdel, updatetime, big_retailprice, retailprice
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sku
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sku
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.test.bean.Sku">
+    insert into sku (id, spu_id, small_unit_code, 
+      big_unit_code, unit_transfer, sku_no, 
+      stock, sale_count, isdel, 
+      updatetime, big_retailprice, retailprice
+      )
+    values (#{id,jdbcType=BIGINT}, #{spu_id,jdbcType=BIGINT}, #{small_unit_code,jdbcType=VARCHAR}, 
+      #{big_unit_code,jdbcType=VARCHAR}, #{unit_transfer,jdbcType=INTEGER}, #{sku_no,jdbcType=VARCHAR}, 
+      #{stock,jdbcType=INTEGER}, #{sale_count,jdbcType=INTEGER}, #{isdel,jdbcType=TINYINT}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{big_retailprice,jdbcType=DECIMAL}, #{retailprice,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.test.bean.Sku">
+    insert into sku
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="spu_id != null">
+        spu_id,
+      </if>
+      <if test="small_unit_code != null">
+        small_unit_code,
+      </if>
+      <if test="big_unit_code != null">
+        big_unit_code,
+      </if>
+      <if test="unit_transfer != null">
+        unit_transfer,
+      </if>
+      <if test="sku_no != null">
+        sku_no,
+      </if>
+      <if test="stock != null">
+        stock,
+      </if>
+      <if test="sale_count != null">
+        sale_count,
+      </if>
+      <if test="isdel != null">
+        isdel,
+      </if>
+      <if test="updatetime != null">
+        updatetime,
+      </if>
+      <if test="big_retailprice != null">
+        big_retailprice,
+      </if>
+      <if test="retailprice != null">
+        retailprice,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="spu_id != null">
+        #{spu_id,jdbcType=BIGINT},
+      </if>
+      <if test="small_unit_code != null">
+        #{small_unit_code,jdbcType=VARCHAR},
+      </if>
+      <if test="big_unit_code != null">
+        #{big_unit_code,jdbcType=VARCHAR},
+      </if>
+      <if test="unit_transfer != null">
+        #{unit_transfer,jdbcType=INTEGER},
+      </if>
+      <if test="sku_no != null">
+        #{sku_no,jdbcType=VARCHAR},
+      </if>
+      <if test="stock != null">
+        #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="sale_count != null">
+        #{sale_count,jdbcType=INTEGER},
+      </if>
+      <if test="isdel != null">
+        #{isdel,jdbcType=TINYINT},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="big_retailprice != null">
+        #{big_retailprice,jdbcType=DECIMAL},
+      </if>
+      <if test="retailprice != null">
+        #{retailprice,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.test.bean.Sku">
+    update sku
+    <set>
+      <if test="spu_id != null">
+        spu_id = #{spu_id,jdbcType=BIGINT},
+      </if>
+      <if test="small_unit_code != null">
+        small_unit_code = #{small_unit_code,jdbcType=VARCHAR},
+      </if>
+      <if test="big_unit_code != null">
+        big_unit_code = #{big_unit_code,jdbcType=VARCHAR},
+      </if>
+      <if test="unit_transfer != null">
+        unit_transfer = #{unit_transfer,jdbcType=INTEGER},
+      </if>
+      <if test="sku_no != null">
+        sku_no = #{sku_no,jdbcType=VARCHAR},
+      </if>
+      <if test="stock != null">
+        stock = #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="sale_count != null">
+        sale_count = #{sale_count,jdbcType=INTEGER},
+      </if>
+      <if test="isdel != null">
+        isdel = #{isdel,jdbcType=TINYINT},
+      </if>
+      <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="big_retailprice != null">
+        big_retailprice = #{big_retailprice,jdbcType=DECIMAL},
+      </if>
+      <if test="retailprice != null">
+        retailprice = #{retailprice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.test.bean.Sku">
+    update sku
+    set spu_id = #{spu_id,jdbcType=BIGINT},
+      small_unit_code = #{small_unit_code,jdbcType=VARCHAR},
+      big_unit_code = #{big_unit_code,jdbcType=VARCHAR},
+      unit_transfer = #{unit_transfer,jdbcType=INTEGER},
+      sku_no = #{sku_no,jdbcType=VARCHAR},
+      stock = #{stock,jdbcType=INTEGER},
+      sale_count = #{sale_count,jdbcType=INTEGER},
+      isdel = #{isdel,jdbcType=TINYINT},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      big_retailprice = #{big_retailprice,jdbcType=DECIMAL},
+      retailprice = #{retailprice,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
