@@ -22,7 +22,7 @@ public class HelloImpl implements HelloInter {
 
     @Autowired
     SkuMapper skuMapper;
-    @ApiOperation(value="测试-getSkuInfo ",httpMethod="POST",notes="lxh2")
+    @ApiOperation(value="测试-getSkuInfo  ",httpMethod="POST",notes="lxh2")
     @RequestMapping(value = "/getSkuInfo")
     @ResponseBody
     @Override
