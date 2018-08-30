@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>websocket测试界面 </title>
+
+    <h2> websocket测试界面 </h2><br/>
+    请输入内容<input id="message" type="text"/><br/>
+    收到服务器传来的消息：<div id="msgcount"></div><br/>
+    <button onclick="send()">发送</button><br/>
+
+</head>
+<body>
+
+<script src="../js/jquery-1.8.0.min.js"></script>
+<script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://cdn.bootcss.com/sockjs-client/1.1.1/sockjs.js"></script>
+
+<script>
+
+
+    // console.log(result);
+    var ws = new WebSocket("ws://localhost:8090/commontest/myHandler")
+    ws.onopen = function () {
+        console.log("onpen");
+        ws.send("test,你好");
+    }
+    ws.onclose = function () {
+        console.log("onclose");
+    }
+
+    ws.onmessage = function (msg) {
+        $("#msgcount").html("(<font color='red'>" + msg.data + "</font>)")
+        console.log(msg.data);
+    }
+
+
+
+    // var websocket;
+    // if ('WebSocket' in window) {
+    //     websocket = new WebSocket("ws://localhost:8090/commontest/websocket");
+    // } else if ('MozWebSocket' in window) {
+    //     websocket = new MozWebSocket("ws://localhost:8090/commontest/websocket");
+    // } else {
+    //     websocket = new SockJS("http://localhost:8090/commontest/websocket");
+    // }
+    // websocket.onopen = function (evnt) {
+    //     console.log('ws clint:open websocket')
+    //     //发送消息
+    //     var msg = 'userid=1';
+    //     console.log('ws clint:send msg:' + msg)
+    //     websocket.send(msg);
+    // };
+    // websocket.onmessage = function (evnt) {
+    //     console.log('ws client:get message ')
+    //     $("#msgcount").html("(<font color='red'>" + evnt.data + "</font>)")
+    // };
+    // websocket.onerror = function (evnt) {
+    //     console.log('ws client:error ' + evnt)
+    // };
+    // websocket.onclose = function (evnt) {
+    //     console.log('ws clent:close ')
+    // }
+    //
+    function send(){
+        var message = $("#message").val();
+        ws.send(message);
+    }
+</script>
+
+</body>
+</html>

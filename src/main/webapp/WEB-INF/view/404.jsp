@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="wrap">
-    <p>400~~~~~
+    <p>404~~~~~
 </div>
 </body>
 </html>

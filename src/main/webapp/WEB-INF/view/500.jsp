@@ -6,7 +6,6 @@
 <head>
     <meta charset="UTF-8">
     <title>500</title>
-    <link rel="stylesheet" href="<%=staticPath%>/css/bootstrap.min.css?v=<%=staticVersion%>"/>
 <script>
 $(document).ready(function() {
 	$("#showErrorMessageButton").click(function() {
