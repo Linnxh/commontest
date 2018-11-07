@@ -1,5 +1,7 @@
 package com;
 
+import com.task.manager.QuartzManager;
+import com.task.manager.SpringQtzDemo2;
 import com.test.bean.Sku;
 import com.test.dao.SkuMapper;
 import org.apache.ibatis.io.Resources;
@@ -21,7 +23,10 @@ public class Main {
 
 //        initMybatisDemo();
 //        initJDBC();
-        initHibernate();
+//        initHibernate();
+//        String jobName, String jobGroupName,
+//                String triggerName, String triggerGroupName, Class jobClass, String cron
+        QuartzManager.addJob("jobName_lxh","jobWork_lxh","triggerName_lxh","triggerGroupName_lxh", SpringQtzDemo2.class,"0/10 * * * * ?");
     }
 
     public static void initJDBC() {

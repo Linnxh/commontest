@@ -15,8 +15,6 @@ import org.apache.commons.logging.LogFactory;
 
 public class SpringQtzDemo extends QuartzJobBean {
 
-
-
     private static final Log log = LogFactory.getLog(SpringQtzDemo.class);
 
     static Logger logger = LoggerFactory.getLogger(SpringQtzDemo.class);

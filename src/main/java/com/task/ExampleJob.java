@@ -9,8 +9,8 @@ import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
 /**
- * @author mhy2011@163.com
- * @date 2013年12月21日
+ * 原文：https://blog.csdn.net/u010397369/article/details/17465649
+ * 单机部署的quartz，配置比较简单不建议采用
  */
 public class ExampleJob extends QuartzJobBean {
 
@@ -19,7 +19,7 @@ public class ExampleJob extends QuartzJobBean {
     @Override
     protected void executeInternal(JobExecutionContext context)
             throws JobExecutionException {
-        System.out.println("ExampleJob~~~"+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + "执行ExampleJob的定时任务");
+//        System.out.println("ExampleJob~~~" + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + "执行ExampleJob的定时任务");
     }
 
     public int getTimeout() {
