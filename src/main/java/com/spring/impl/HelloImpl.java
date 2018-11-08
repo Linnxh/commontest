@@ -17,11 +17,11 @@ import javax.ws.rs.Path;
 @Path("受苦了的减肥卡兰蒂斯")
 @Component
 @RequestMapping(value="/interface",name = "#了时代峻峰库里的" )
-@Api("sldkjfklsd")
 public class HelloImpl implements HelloInter {
 
     @Autowired
     SkuMapper skuMapper;
+
     @ApiOperation(value="测试-getSkuInfo  ",httpMethod="POST",notes="lxh2")
     @RequestMapping(value = "/getSkuInfo")
     @ResponseBody

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.dao.QuartzServiceMapper">
+    <resultMap id="BaseResultMap" type="com.task.tool.bean.QuartzServiceModel">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="reqUrl" jdbcType="VARCHAR" property="reqUrl"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="execTime" jdbcType="VARCHAR" property="execTime"/>
+        <result column="isStart" jdbcType="INTEGER" property="isStart"/>
+
+        <result column="createTime" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="createName" jdbcType="VARCHAR" property="createName"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, reqUrl, name, execTime, isStart, createTime, createName
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from quartzservice
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sku
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.task.tool.bean.QuartzServiceModel">
+    insert into quartzservice (id, reqUrl, name, execTime, isStart, createTime, createName
+      )
+    values (#{id,jdbcType=BIGINT}, #{reqUrl},#{name},#{execTime},#{isStart},#{createTime},#{createName}
+      )
+  </insert>
+
+    <select id="queryStartList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from quartzservice
+    </select>
+
+
+</mapper>
