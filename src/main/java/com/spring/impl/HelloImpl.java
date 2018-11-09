@@ -16,7 +16,7 @@ import javax.ws.rs.Path;
 @Service
 @Path("受苦了的减肥卡兰蒂斯")
 @Component
-@RequestMapping(value="/interface",name = "#了时代峻峰库里的" )
+@RequestMapping(value="/HelloImpl",name = "#了时代峻峰库里的" )
 public class HelloImpl implements HelloInter {
 
     @Autowired

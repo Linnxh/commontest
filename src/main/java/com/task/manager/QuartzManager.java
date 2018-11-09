@@ -1,30 +1,36 @@
 package com.task.manager;
 
+import com.task.business.HttpUtil;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class QuartzManager {
 
 
     private static SchedulerFactory schedulerFactory = new StdSchedulerFactory();
-
+    public static final String ParamMapKey="QuartzServiceModel";
 
     /**
-     * @Description: 添加一个定时任务
-     *
-     * @param jobName 任务名
-     * @param jobGroupName  任务组名
-     * @param triggerName 触发器名
+     * @param jobName          任务名
+     * @param jobGroupName     任务组名
+     * @param triggerName      触发器名
      * @param triggerGroupName 触发器组名
-     * @param jobClass  任务
-     * @param cron   时间设置，参考quartz说明文档
+     * @param jobClass         任务
+     * @param cron             时间设置，参考quartz说明文档
+     * @Description: 添加一个定时任务
      */
     public static void addJob(String jobName, String jobGroupName,
                               String triggerName, String triggerGroupName, Class jobClass, String cron) {
         try {
+
+
+
             Scheduler sched = schedulerFactory.getScheduler();
             // 任务名，任务组，任务执行类
-            JobDetail jobDetail= JobBuilder.newJob(jobClass).withIdentity(jobName, jobGroupName).build();
+            JobDetail jobDetail = JobBuilder.newJob(jobClass).withIdentity(jobName, jobGroupName).build();
 
 
             // 触发器
@@ -54,13 +60,12 @@ public class QuartzManager {
 
 
     /**
-     * @Description: 修改一个任务的触发时间
-     *
      * @param jobName
      * @param jobGroupName
-     * @param triggerName 触发器名
+     * @param triggerName      触发器名
      * @param triggerGroupName 触发器组名
-     * @param cron   时间设置，参考quartz说明文档
+     * @param cron             时间设置，参考quartz说明文档
+     * @Description: 修改一个任务的触发时间
      */
     public static void modifyJobTime(String jobName,
                                      String jobGroupName, String triggerName, String triggerGroupName, String cron) {
@@ -104,12 +109,11 @@ public class QuartzManager {
 
 
     /**
-     * @Description: 移除一个任务
-     *
      * @param jobName
      * @param jobGroupName
      * @param triggerName
      * @param triggerGroupName
+     * @Description: 移除一个任务
      */
     public static void removeJob(String jobName, String jobGroupName,
                                  String triggerName, String triggerGroupName) {
@@ -154,5 +158,29 @@ public class QuartzManager {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static boolean isRefreshing = false;
+
+    public static void init(final Class cls, final String appName) {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            public void run() {
+                if (isRefreshing) {
+                    return;
+                }
+                isRefreshing = true;
+                System.out.println("每隔" + 5000 + "秒发送" + "post请求");
+                try {
+
+//                    String json = HttpUtil.sendPost("http://localhost:8090/commontest/quartzserviceimpl/querystartlist", "", "application/json;charset=utf-8", null);
+                    String json = HttpUtil.sendPost("http://localhost:8090/commontest/quartzserviceimpl/querystartlist", "", "application/json;charset=utf-8", null);
+                    System.out.println(json);
+                    addJob("jobName_lxh2","jobWork_lxh2","triggerName_lxh2","triggerGroupName_lxh2",cls,"0/10 * * * * ?");
+                } catch (Exception e) {
+                }
+                isRefreshing = false;
+            }
+        }, 5000, 5000);
     }
 }

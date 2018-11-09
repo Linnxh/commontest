@@ -32,6 +32,7 @@ public class QuartzServiceImpl implements QuartzServiceInter {
     @ResponseBody
     @Override
     public List<QuartzServiceModel> queryStartList() {
+        List<QuartzServiceModel> quartzServiceModels = mapper.queryStartList();
         return mapper.queryStartList();
     }
 
