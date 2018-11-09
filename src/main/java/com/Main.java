@@ -26,7 +26,7 @@ public class Main {
 //        initHibernate();
 //        String jobName, String jobGroupName,
 //                String triggerName, String triggerGroupName, Class jobClass, String cron
-//        QuartzManager.addJob("jobName_lxh2","jobWork_lxh2","triggerName_lxh2","triggerGroupName_lxh2",SpringQtzDemo2.class,"0/10 * * * * ?");
+        QuartzManager.addJob("jobName_lxh2","jobWork_lxh2","triggerName_lxh2","triggerGroupName_lxh2",SpringQtzDemo2.class,"0/10 * * * * ?",null);
 
 
 

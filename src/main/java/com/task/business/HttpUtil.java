@@ -16,6 +16,10 @@ public class HttpUtil {
     private static final int ConnectTimeout = 30000;
     private static final int ReadTimeout = 30000;
 
+    public static String sendPost(String url) {
+        return sendPost(url, null, "application/json;charset=utf-8", null);
+    }
+
     /**
      * 向指定 URL 发送POST方法的请求
      *
@@ -68,7 +72,7 @@ public class HttpUtil {
             result = StreamUtils.copyToString(in, Charset.forName("utf-8"));
         } catch (Exception e) {
 //             System.out.println("发送 POST 请求出现异常！"+e);
-             e.printStackTrace();
+            e.printStackTrace();
 //            throw new RuntimeException(getCauseBy(url, e, param));
         }
         // 使用finally块来关闭输出流、输入流

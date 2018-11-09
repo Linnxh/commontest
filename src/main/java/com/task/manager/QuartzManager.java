@@ -1,9 +1,14 @@
 package com.task.manager;
 
+import com.alibaba.fastjson.JSON;
 import com.task.business.HttpUtil;
+import com.task.tool.bean.QuartzServiceModel;
+import org.apache.commons.lang.StringUtils;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -11,7 +16,7 @@ public class QuartzManager {
 
 
     private static SchedulerFactory schedulerFactory = new StdSchedulerFactory();
-    public static final String ParamMapKey="QuartzServiceModel";
+    public static final String ParamMapKey = "QuartzServiceModel";
 
     /**
      * @param jobName          任务名
@@ -23,16 +28,16 @@ public class QuartzManager {
      * @Description: 添加一个定时任务
      */
     public static void addJob(String jobName, String jobGroupName,
-                              String triggerName, String triggerGroupName, Class jobClass, String cron) {
+                              String triggerName, String triggerGroupName, Class jobClass, String cron, HashMap<String, Object> paramMap) {
         try {
-
 
 
             Scheduler sched = schedulerFactory.getScheduler();
             // 任务名，任务组，任务执行类
             JobDetail jobDetail = JobBuilder.newJob(jobClass).withIdentity(jobName, jobGroupName).build();
-
-
+            if (paramMap != null && paramMap.size() > 0) {
+                jobDetail.getJobDataMap().putAll(paramMap);
+            }
             // 触发器
             TriggerBuilder<Trigger> triggerBuilder = TriggerBuilder.newTrigger();
             // 触发器名,触发器组
@@ -172,15 +177,32 @@ public class QuartzManager {
                 isRefreshing = true;
                 System.out.println("每隔" + 5000 + "秒发送" + "post请求");
                 try {
-
-//                    String json = HttpUtil.sendPost("http://localhost:8090/commontest/quartzserviceimpl/querystartlist", "", "application/json;charset=utf-8", null);
-                    String json = HttpUtil.sendPost("http://localhost:8090/commontest/quartzserviceimpl/querystartlist", "", "application/json;charset=utf-8", null);
+                    // TODO: 2018/11/9 lxh 查询定时服务的列表页 （tool管理后添加的）
+                    String json = HttpUtil.sendPost("http://192.168.3.197:8090/commontest/quartzserviceimpl/querystartlist");
                     System.out.println(json);
-                    addJob("jobName_lxh2","jobWork_lxh2","triggerName_lxh2","triggerGroupName_lxh2",cls,"0/10 * * * * ?");
+                    List<QuartzServiceModel> list = JSON.parseArray(json, QuartzServiceModel.class);
+                    for (QuartzServiceModel q : list) {
+                        if (checkModel(q)) {
+                            HashMap<String, Object> paramMap = new HashMap<String, Object>();
+                            paramMap.put(ParamMapKey, q);
+                            addJob(q.getName(), "jobWork_lxh3", "triggerName_lxh3", "triggerGroupName_lxh3", cls, q.getExecTime(), paramMap);
+                        }
+                    }
                 } catch (Exception e) {
                 }
                 isRefreshing = false;
             }
         }, 5000, 5000);
+    }
+
+    public static boolean checkModel(QuartzServiceModel quartz) {
+
+        if (quartz == null || StringUtils.isEmpty(quartz.getName()) || StringUtils.isEmpty(quartz.getExecTime())) {
+            return false;
+        }
+        if (quartz == null || StringUtils.isEmpty(quartz.getName()) || StringUtils.isEmpty(quartz.getExecTime())) {
+            return false;
+        }
+        return true;
     }
 }

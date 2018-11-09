@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @Component
-@RequestMapping(value = "/businessquartimpl", name = "业务接口")
+@RequestMapping(value = "/businessquartimpl", name = "定时服务向外暴露的地方")
 public class BusinessQuartImpl implements BusinessQuartInter {
 
     @ApiOperation(value = "启动活动", httpMethod = "POST", notes = "lxh2")
